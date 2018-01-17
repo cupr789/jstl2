@@ -19,7 +19,9 @@ public class UserDaoImpl implements UserDao{
 		List<UserInfo> userList = new ArrayList<UserInfo>();
 		String sql = "select * from user_info where 1=1";
 		if(ui!=null) {
-			sql+="and uiname like ?";
+			sql+= " and ";
+			sql+= ui.getSearchType();
+			sql+= " like ?";
 		}
 		Connection con=null;
 		PreparedStatement ps =null;
@@ -27,8 +29,15 @@ public class UserDaoImpl implements UserDao{
 		try {
 			con=DBCon.getCon();
 			ps= con.prepareStatement(sql);
-			if(ui!=null) {
-				ps.setString(1, "%"+ui.getUiName()+"%");
+			if(ui!=null && !ui.getUiName().equals("")) {
+				String searchStr = ui.getUiName();
+				if(ui.getSearchType().equals("uiAge")) {
+					searchStr = ""+ui.getUiAge();
+				}else if(ui.getSearchType().equals("address")) {
+					searchStr = ui.getAddress();
+				}
+				
+				ps.setString(1, "%"+searchStr+"%");
 			}
 			rs=ps.executeQuery();
 			while(rs.next()) {

@@ -9,6 +9,7 @@ public class UserInfo {
 	private int ciNo;
 	private String uiRegDate;
 	private String address;
+	private String searchType;
 	
 	public int getUiNo() {
 		return uiNo;
@@ -18,6 +19,12 @@ public class UserInfo {
 	}
 	public String getUiName() {
 		return uiName;
+	}
+	public String getSearchType() {
+		return searchType;
+	}
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
 	}
 	public void setUiName(String uiName) {
 		this.uiName = uiName;
@@ -61,7 +68,9 @@ public class UserInfo {
 	@Override
 	public String toString() {
 		return "UserInfo [uiNo=" + uiNo + ", uiName=" + uiName + ", uiAge=" + uiAge + ", uiId=" + uiId + ", uiPwd="
-				+ uiPwd + ", ciNo=" + ciNo + ", uiRegDate=" + uiRegDate + ", address=" + address + "]";
+				+ uiPwd + ", ciNo=" + ciNo + ", uiRegDate=" + uiRegDate + ", address=" + address + ", searchType="
+				+ searchType + "]";
 	}
+	
 
 }

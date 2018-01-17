@@ -1,5 +1,8 @@
 package com.iot.test.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.google.gson.Gson;
@@ -14,11 +17,22 @@ public class UserServiceImpl implements UserService{
 	public void getUserList(HttpServletRequest req) {
 		UserInfo ui = null;
 		Gson gs = new Gson();
-		String json = req.getParameter("param");
-		if(json!=null) {
-			ui=gs.fromJson(json, UserInfo.class);
+		String searchType = req.getParameter("searchType");
+		String searchStr = req.getParameter("searchStr");
+		if(searchType!=null && !searchStr.equals("")) {
+			ui=new UserInfo();
+			ui.setSearchType(searchType);
+			if(searchType.equals("uiName")) {
+				ui.setUiName(searchStr);
+			}else if(searchType.equals("uiAge")) {
+				ui.setUiAge(Integer.parseInt(searchStr));
+			}else if(searchType.equals("address")) {
+				ui.setAddress(searchStr);
+			}
 		}
 		req.setAttribute("userList", ud.selectUserList(ui));
+		req.setAttribute("searchType", searchType);
+		req.setAttribute("searchStr", searchStr);
 	}
 
 	@Override

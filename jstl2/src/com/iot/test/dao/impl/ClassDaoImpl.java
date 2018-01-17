@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.iot.test.common.DBCon;
 import com.iot.test.dao.ClassDao;
+import com.iot.test.utils.DBUtil;
 import com.iot.test.vo.ClassInfo;
 
 public class ClassDaoImpl implements ClassDao{
@@ -45,6 +46,8 @@ public class ClassDaoImpl implements ClassDao{
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
+		}finally {
+			DBUtil.closeAll(rs, con, ps);
 		}
 		
 		return classList;
