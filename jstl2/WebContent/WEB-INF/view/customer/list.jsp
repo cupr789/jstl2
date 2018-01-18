@@ -30,6 +30,32 @@
 		}
 		return true;
 	}
+	
+	function test(){
+		alert("ssdasd");
+	}
+	function setInputBox(button){
+		var buttonId = button.id;	
+		var customerNameTd = document.getElementById("customerNameTd"+buttonId);
+		var customerNameTdVal = customerNameTd.innerHTML;
+		var cityTd = document.getElementById("cityTd"+buttonId);
+		var cityTdVal = cityTd.innerHTML;
+		var countryTd = document.getElementById("countryTd"+buttonId);
+		var countryTdVal = countryTd.innerHTML;
+		
+/* 		alert($('#trId1').text);
+		$('#trId'+buttonId).contents().unwrap().wrap('<form action="'+button.value+'/view/customer/update.jsp">');
+		$('#customerNameTd'+buttonId).contents().unwrap().wrap('<td><input type="text" size="3" value="'+customerNameTdVal+'"></input></td>');
+		$('#cityTd'+buttonId).contents().unwrap().wrap('<td><input type="text" size="5" value="'+cityTdVal+'"></input></td>');
+		$('#countryTd'+buttonId).contents().unwrap().wrap('<td><input type="text" size="5" value="'+countryTdVal+'"></input></td>');
+		button.attr("type","submit");
+		button.innerHTML+="</tr></form>"; */
+		//$('#trId'+buttonId).contents().unwrap().wrap('<form action="'+button.value+'/view/customer/update.jsp">');
+		$('#customerNameTd'+buttonId).contents().unwrap().wrap('<td><input type="text" size="3" value="'+customerNameTdVal+'"></input></td>');
+		$('#cityTd'+buttonId).contents().unwrap().wrap('<td><input type="text" size="5" value="'+cityTdVal+'"></input></td>');
+		$('#countryTd'+buttonId).contents().unwrap().wrap('<td><input type="text" size="5" value="'+countryTdVal+'"></input></td></form>');
+		//$('#'+buttonId).attr("type","submit");
+	}
 </script>
 <body>
 	<%
@@ -45,6 +71,7 @@
 		}else if(flag.equals("2")){
 			flag="1";
 		}	
+		
 	%>
 	<c:set var="flag" value="<%=flag %>"/>
 	고객리스트
@@ -60,7 +87,7 @@
 
 
 	<table border="1" cellspacing="0" cellpadding="0">
-		<tr>
+		<tr> <!-- customerid asc,customername asc,city asc,country asc -->
 			<th><a
 				href="${root}/view/customer/list.jsp?order=customerid&flag=${flag}">CustomerID</a></th>
 			<th><a
@@ -69,18 +96,24 @@
 				href="${root}/view/customer/list.jsp?order=city&flag=${flag}">City</a></th>
 			<th><a
 				href="${root}/view/customer/list.jsp?order=country&flag=${flag}">Country</a></th>
+				<th align="center" colspan="2">SETTING</th>
 			<c:if test="${customerList eq null}">
 				<tr>
-					<td colspan="4" align="center">고객리스트가 없습니다.</td>
+					<td colspan="5" align="center">고객리스트가 없습니다.</td>
 				</tr>
 			</c:if>
+			
 			<c:forEach items="${customerList}" var="cl">
-				<tr align="center">
-					<td>${cl.customerID }</td>
-					<td>${cl.customerName}</td>
-					<td>${cl.city}</td>
-					<td>${cl.country}</td>
+			<form action="${root }/view/customer/update.jsp">
+				<tr id="trId${cl.customerID}" align="center">
+					<td id="customerIdTd">${cl.customerID }</td>
+					<td id="customerNameTd${cl.customerID }"><input name="customerNameTd${cl.customerID }" size="3" value="${cl.customerName}"></td>
+					<td id="cityTd${cl.customerID }"><input name="cityTd${cl.customerID }" size="5" value="${cl.city}"></td>
+					<td id="countryTd${cl.customerID }"><input name="countryTd${cl.customerID }" size="5" value="${cl.country}"></td>
+					<td><button id="${cl.customerID }" type="submit" name="customerId" value="${cl.customerID }">수정</button></td>
+					<td><a href=""><button>삭제</button></a></td>
 				</tr>
+			</form>
 			</c:forEach>
 	</table>
 </body>

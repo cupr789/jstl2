@@ -50,8 +50,7 @@ public class JspServlet extends HttpServlet{
 		
 		if(uri.indexOf("user/list")!=-1) {
 			UserService us = new UserServiceImpl();
-			us.getUserList(req);
-			
+			us.getUserList(req);	
 		}
 		if(uri.indexOf("class/list")!=-1) {
 			ClassService cs = new ClassServiceImpl();
@@ -61,10 +60,12 @@ public class JspServlet extends HttpServlet{
 		if(uri.indexOf("customer/list")!=-1) {
 			CustomerService cuService = new CustomerServiceImpl();
 			cuService.setCustomerList(req);
-			//req.setAttribute("customerList", cuService.getCustomerList());
 		}
-		
-
+		if(uri.indexOf("customer/update")!=-1) {
+			int partIdx = uri.indexOf(".");
+			uri = uri.replace(uri.substring(uri.indexOf("update"),partIdx), "list");
+			System.out.println(req.getParameter("customerId")+"                    ??");
+		}
 		
 		uri = "/WEB-INF"+uri;
 		RequestDispatcher rd = req.getRequestDispatcher(uri);

@@ -17,22 +17,42 @@ import com.iot.test.vo.Customer;
 public class CustomerDaoImpl implements CustomerDao {
 
 	@Override
-	public List<Customer> selectCustomerList(String orderStr,String flag) {
+	public List<Customer> selectCustomerList(HttpServletRequest req) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		String orderStr = req.getParameter("order");
+		System.out.println(orderStr);
+		String flag = req.getParameter("flag");
+		System.out.println(flag);
 		ArrayList<Customer> customerList = new ArrayList<Customer>();
 		try {
 			con = DBCon.getCon();
-			String sql = "select * from customer";
-			if(orderStr!=null) {
-				if(flag.equals("1")) {					
-					sql+=" order by "+orderStr;
+			String sql = "select * from customer ";
+			
+			  if(orderStr!=null) { if(flag.equals("1")) { 
+				  sql+=" order by "+orderStr; 
+				  }
+			  if(flag.equals("2")){ 
+				  sql+=" order by "+orderStr+" desc"; 
+				  } 
+			  }
+			 
+
+/*			if (flag != null) {
+				sql += "order by ";
+				int fidx = flag.indexOf(",");
+				String partFlag = flag.substring(0, fidx);
+				flag.replace(partFlag, "");
+				if (partFlag.indexOf("asc") != -1) {
+					partFlag = partFlag.substring(0, partFlag.indexOf("asc") - 1) + " desc,";
 				}
-				if(flag.equals("2")){
-					sql+=" order by "+orderStr+" desc";
+				else {
+					partFlag = partFlag.substring(0, partFlag.indexOf("desc") - 1) + " asc,";
 				}
-			}
+				sql += partFlag + flag;
+				System.out.println("sql = " +sql);
+			}*/
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while (rs.next()) {
@@ -46,7 +66,7 @@ public class CustomerDaoImpl implements CustomerDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			DBUtil.closeAll(rs, con, ps);
 		}
 

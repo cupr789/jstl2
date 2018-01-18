@@ -7,5 +7,5 @@ import javax.servlet.http.HttpServletRequest;
 import com.iot.test.vo.Customer;
 
 public interface CustomerDao {
-	public List<Customer> selectCustomerList(String order,String flag);
+	public List<Customer> selectCustomerList(HttpServletRequest req);
 }

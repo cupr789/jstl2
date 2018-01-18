@@ -15,7 +15,7 @@ public class CustomerServiceImpl implements CustomerService{
 
 	@Override
 	public void setCustomerList(HttpServletRequest req) {
-		req.setAttribute("customerList", cd.selectCustomerList(req.getParameter("order"),req.getParameter("flag")));
+		req.setAttribute("customerList", cd.selectCustomerList(req));
 		req.setAttribute("flag", req.getParameter("flag"));
 	}
 	
