@@ -18,6 +18,24 @@ public class CustomerServiceImpl implements CustomerService{
 		req.setAttribute("customerList", cd.selectCustomerList(req));
 		req.setAttribute("flag", req.getParameter("flag"));
 	}
+
+	@Override
+	public int deleteCustomer(HttpServletRequest req) {
+		int result = cd.deleteCustomer(req);
+		return result;
+	}
+
+	@Override
+	public int updateCustomer(HttpServletRequest req) {
+		int result = cd.updateCustomer(req);
+		return result;
+	}
+
+	@Override
+	public int insertCustomer(HttpServletRequest req) {
+		int result = cd.insertCustomer(req);
+		return result;
+	}
 	
 
 }

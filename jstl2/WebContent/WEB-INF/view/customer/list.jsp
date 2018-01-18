@@ -55,6 +55,7 @@
 		$('#cityTd'+buttonId).contents().unwrap().wrap('<td><input type="text" size="5" value="'+cityTdVal+'"></input></td>');
 		$('#countryTd'+buttonId).contents().unwrap().wrap('<td><input type="text" size="5" value="'+countryTdVal+'"></input></td></form>');
 		//$('#'+buttonId).attr("type","submit");
+		
 	}
 </script>
 <body>
@@ -84,6 +85,17 @@
 		</select> <input type="text" name="searchStr" value="${searchStr}">
 		<button type="submit">검색</button>
 	</form>
+	
+	<form action="${root }/view/customer/insert.jsp">
+	<table>
+	<tr>
+		<td><input type="text" placeholder="이름" name="customerName"></td>
+		<td><input type="text" placeholder="도시" name="city"></td>
+		<td><input type="text" placeholder="국가" name="country"></td>
+		<td><button>Customer입력</button><td>
+	</tr>
+	</table>
+	</form>	
 
 
 	<table border="1" cellspacing="0" cellpadding="0">
@@ -104,16 +116,16 @@
 			</c:if>
 			
 			<c:forEach items="${customerList}" var="cl">
-			<form action="${root }/view/customer/update.jsp">
+			 <form action="${root }/view/customer/update.jsp">
 				<tr id="trId${cl.customerID}" align="center">
 					<td id="customerIdTd">${cl.customerID }</td>
 					<td id="customerNameTd${cl.customerID }"><input name="customerNameTd${cl.customerID }" size="3" value="${cl.customerName}"></td>
 					<td id="cityTd${cl.customerID }"><input name="cityTd${cl.customerID }" size="5" value="${cl.city}"></td>
 					<td id="countryTd${cl.customerID }"><input name="countryTd${cl.customerID }" size="5" value="${cl.country}"></td>
-					<td><button id="${cl.customerID }" type="submit" name="customerId" value="${cl.customerID }">수정</button></td>
-					<td><a href=""><button>삭제</button></a></td>
+					<td><button name="deleteName" value="${cl.customerID }" >삭제</button></td>
+					<td><button id="${cl.customerID }" name="customerId" value="${cl.customerID }">수정</button></td>
 				</tr>
-			</form>
+			 </form>
 			</c:forEach>
 	</table>
 </body>

@@ -74,4 +74,87 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	}
 
+	@Override
+	public int deleteCustomer(HttpServletRequest req) {
+		String deleteId = req.getParameter("deleteName");
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		int result = 0;
+		String sql = "delete from customer where customerID=?";
+		
+		con = DBCon.getCon();
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, Integer.parseInt(deleteId));
+			result = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DBUtil.close(ps);
+			DBUtil.close(con);
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int updateCustomer(HttpServletRequest req) {
+		String updateId = req.getParameter("customerId");
+		String customerName = req.getParameter("customerNameTd"+updateId);
+		String city = req.getParameter("cityTd"+updateId);
+		String country = req.getParameter("countryTd"+updateId);
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		int result = 0;
+		String sql = "update customer set customerName=?,city=?,country=? where customerID=?";
+		
+		con = DBCon.getCon();
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, customerName);
+			ps.setString(2, city);
+			ps.setString(3, country);
+			ps.setInt(4, Integer.parseInt(updateId));
+			result = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DBUtil.close(ps);
+			DBUtil.close(con);
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int insertCustomer(HttpServletRequest req) {
+		
+		String customerName = req.getParameter("customerName");
+		String city = req.getParameter("city");
+		String country = req.getParameter("country");
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		int result = 0;
+		String sql = "insert into customer(customerName,city,country)values(?,?,?)";
+		
+		con = DBCon.getCon();
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, customerName);
+			ps.setString(2, city);
+			ps.setString(3, country);
+			result = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DBUtil.close(ps);
+			DBUtil.close(con);
+		}
+		
+		return result;
+	}
+
 }
