@@ -39,6 +39,7 @@ public class JspServlet extends HttpServlet{
 		uri = uri.replace(root, "");
 		System.out.println(uri);
 		ms.setMenuList(req);
+		
 		if(uri.indexOf("user/list")!=-1) {
 			UserService us = new UserServiceImpl();
 			us.getUserList(req);	
@@ -104,6 +105,7 @@ public class JspServlet extends HttpServlet{
 		}
 		
 		if(uri.indexOf("menu/list")!=-1) {
+			ms.setMenuList(req);
 			uri = "/WEB-INF"+uri;
 		}
 		RequestDispatcher rd = req.getRequestDispatcher(uri);
