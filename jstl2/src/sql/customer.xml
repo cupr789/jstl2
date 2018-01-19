@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="customer">
+	<select id="selectCustomer" parameterType="map" resultType="com.iot.test.vo.Customer"> <!-- selectList를 할때는 List<Customer>형식으로 리턴 one일때는  Customer타입으로 리턴 -->
+		SELECT *  FROM CUSTOMER ORDER BY ${str};  <!-- '' 이 붙지않고 문자열이 그대로 붙음 쿼리문을 내맘대로 조작할때-->
+	</select>
+	<update id="updateCustomer" parameterType="customer">
+		update customer set customerName = #{customerName} where customerID = #{customerID} <!-- ''이 자동으로 붙음  ? 와 같음 #{}은 키값으로 가져오는게 아니고 .getCustomer이런식으로 변환해줌 -->
+	</update>
+</mapper>

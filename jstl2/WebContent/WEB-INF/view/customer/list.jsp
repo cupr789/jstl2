@@ -66,6 +66,8 @@
 				String searchStr = request.getParameter("searchStr"); */
 
 		List<Customer> customerList = (List<Customer>)request.getAttribute("customerList");
+		List<Customer> customerOne = (List<Customer>)request.getAttribute("customerOne");
+		
 		String flag= (String)request.getAttribute("flag");
 		if(flag==null||flag.equals("1")){
 			flag="2";
@@ -76,7 +78,7 @@
 	%>
 	<c:set var="flag" value="<%=flag %>"/>
 	고객리스트
-	<form onsubmit="return checkValue()">
+	<form onsubmit="return checkValue()" >
 		<select name="searchType" id="searchType">
 			<option value="CustomerID">아이디</option>
 			<option value="CustomerName">이름</option>
@@ -114,7 +116,13 @@
 					<td colspan="5" align="center">고객리스트가 없습니다.</td>
 				</tr>
 			</c:if>
-			
+			<%
+			if(customerOne!=null){
+			%>
+			<c:set var="customerList" value="<%=customerOne %>"></c:set>
+			<%
+			}
+			%>
 			<c:forEach items="${customerList}" var="cl">
 			 <form action="${root }/view/customer/update.jsp">
 				<tr id="trId${cl.customerID}" align="center">
@@ -127,6 +135,8 @@
 				</tr>
 			 </form>
 			</c:forEach>
+
+
 	</table>
 </body>
 </html>

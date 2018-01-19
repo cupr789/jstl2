@@ -61,7 +61,6 @@ public class CustomerDaoImpl implements CustomerDao {
 				cs.setCountry(rs.getString("country"));
 				cs.setCustomerName(rs.getString("customername"));
 				cs.setCustomerID(rs.getInt("customerID"));
-				cs.setFlag(flag);
 				customerList.add(cs);
 			}
 		} catch (SQLException e) {
@@ -155,6 +154,43 @@ public class CustomerDaoImpl implements CustomerDao {
 		}
 		
 		return result;
+	}
+
+	@Override
+	public List<Customer> selectCustomerOne(HttpServletRequest req) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String searchType = req.getParameter("searchType");
+		String searchStr = req.getParameter("searchStr");
+		ArrayList<Customer> customerList = new ArrayList<Customer>();
+		try {
+			con = DBCon.getCon();
+			String sql = "select * from customer";
+			if(searchStr!=null && !searchStr.equals("")) {
+				sql+= " where "+searchType+"=?";
+				  ps = con.prepareStatement(sql);
+				  ps.setString(1, searchStr);
+			}
+			else {				
+				ps = con.prepareStatement(sql);	
+			}
+			rs = ps.executeQuery();
+				while (rs.next()) {
+					Customer cs = new Customer();
+					cs.setCity(rs.getString("city"));
+					cs.setCountry(rs.getString("country"));
+					cs.setCustomerName(rs.getString("customername"));
+					cs.setCustomerID(rs.getInt("customerID"));
+					customerList.add(cs);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				DBUtil.closeAll(rs, con, ps);
+			}
+
+			return customerList;
 	}
 
 }

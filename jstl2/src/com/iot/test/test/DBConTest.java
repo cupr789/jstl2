@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DBConTest {
 	public static Connection getCon() {
-	      String url = "jdbc:mariadb://localhost:3306/test2";
+	      String url = "jdbc:mariadb://localhost:3306/iot2";
 	      String user = "root";
 	      String password = "soos789";
 	      Connection con = null;

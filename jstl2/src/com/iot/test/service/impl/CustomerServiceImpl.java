@@ -36,6 +36,13 @@ public class CustomerServiceImpl implements CustomerService{
 		int result = cd.insertCustomer(req);
 		return result;
 	}
+
+	@Override
+	public void setCustomerOne(HttpServletRequest req) {
+		System.out.println(cd.selectCustomerOne(req));
+		req.setAttribute("customerOne", cd.selectCustomerOne(req));
+		
+	}
 	
 
 }

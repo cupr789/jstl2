@@ -32,6 +32,7 @@
 			<ul class="nav navbar-nav">
 				<c:forEach items="${menuList}" var="ml">
 					<li><a href="${root}${ml.mUrl}.jsp">${ml.mName}</a></li>
+
 				</c:forEach>
 			</ul>
 		</div>

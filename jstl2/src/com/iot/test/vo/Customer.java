@@ -6,14 +6,7 @@ public class Customer {
 	private String customerName;
 	private String city;
 	private String country;
-	private String flag;
 	
-	public String getFlag() {
-		return flag;
-	}
-	public void setFlag(String flag) {
-		this.flag = flag;
-	}
 	public int getCustomerID() {
 		return customerID;
 	}
@@ -41,7 +34,8 @@ public class Customer {
 	@Override
 	public String toString() {
 		return "Customer [customerID=" + customerID + ", customerName=" + customerName + ", city=" + city + ", country="
-				+ country + ", flag=" + flag + "]";
+				+ country + "]";
 	}
+	
 	
 }
