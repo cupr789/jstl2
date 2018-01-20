@@ -15,4 +15,28 @@ public class MenuServiceImpl implements MenuService {
 		req.setAttribute("menuList", mdao.selectMenuList());
 	}
 
+	@Override
+	public void updateMenuList(HttpServletRequest req) {
+		req.setAttribute("updateResult", mdao.updateMenuList(req));
+		
+	}
+
+	@Override
+	public void deleteMenu(HttpServletRequest req) {
+		req.setAttribute("deleteResult", mdao.deleteMenu(req));
+		
+	}
+
+	@Override
+	public void getMenuSearch(HttpServletRequest req) {
+		req.setAttribute("menuList", mdao.selectMenuSearch(req));
+		
+	}
+
+	@Override
+	public void insertMenu(HttpServletRequest req) {
+		req.setAttribute("insertResult", mdao.insertMenu(req));
+		
+	}
+
 }

@@ -7,6 +7,6 @@
 		SELECT *  FROM CUSTOMER ORDER BY ${str};  <!-- '' 이 붙지않고 문자열이 그대로 붙음 쿼리문을 내맘대로 조작할때-->
 	</select>
 	<update id="updateCustomer" parameterType="customer">
-		update customer set customerName = #{customerName} where customerID = #{customerID} <!-- ''이 자동으로 붙음  ? 와 같음 #{}은 키값으로 가져오는게 아니고 .getCustomer이런식으로 변환해줌 -->
+		update customer set customerName = #{customerName} where customerID = #{customerID} <!-- ''이 자동으로 붙음,  ? 와 같음, #{}은 키값으로 가져오는게 아니고 .getCustomer이런식으로 변환해줌 -->
 	</update>
 </mapper>

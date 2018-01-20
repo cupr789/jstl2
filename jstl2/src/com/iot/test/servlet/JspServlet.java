@@ -106,8 +106,30 @@ public class JspServlet extends HttpServlet{
 		
 		if(uri.indexOf("menu/list")!=-1) {
 			ms.setMenuList(req);
+			String searchType = req.getParameter("searchType");
+			if(req.getParameter("searchType")!=null) {				
+				ms.getMenuSearch(req);
+			}
 			uri = "/WEB-INF"+uri;
 		}
+		
+		if(uri.indexOf("menu/update")!=-1) {
+			int partIdx = uri.indexOf(".");
+			uri = uri.replace(uri.substring(uri.indexOf("update"),partIdx), "list");
+			if(req.getParameter("updateId")!=null) {
+				ms.updateMenuList(req);
+			}
+			if(req.getParameter("deleteId")!=null) {
+				ms.deleteMenu(req);
+			}
+		}
+		
+		if(uri.indexOf("menu/insert")!=-1) {
+			int partIdx = uri.indexOf(".");
+			uri = uri.replace(uri.substring(uri.indexOf("insert"),partIdx), "list");
+			ms.insertMenu(req);
+		}
+		
 		RequestDispatcher rd = req.getRequestDispatcher(uri);
 		rd.forward(req, res);
 	}
