@@ -11,6 +11,17 @@
 </head>
 
 <script>
+
+function goPage(type){
+	if(type){
+		if(type=="view"){
+			location.href="${root}/view/user/view.jsp?param='sdssd'";
+		}else if(type="insert"){
+			location.href="${root}/view/user/insert.jsp";
+		}
+	}
+}
+
 function getEl(id){
 	return document.getElementById(id);
 }
@@ -31,7 +42,11 @@ function checkValue(){
 	return true;
 }
 </script>
-
+<style>
+tr:hover {
+	background-color :yellow;
+}
+</style>
 
 
 <body>
@@ -67,13 +82,16 @@ function checkValue(){
 			<th>아이디</th>
 		</tr>
 		<c:forEach items="${userList }" var="ui">
-			<tr>
+			<tr onclick="goPage('view')" style="cursor:pointer">
 				<td>${ui.uiName }</td>
 				<td>${ui.uiAge }</td>
 				<td>${ui.address }</td>
 				<td>${ui.uiId }</td>
 			</tr>
 		</c:forEach>
+		<tr>
+			<td colspan="4" align="center"> <input type="button" value="회원 추가" onclick="goPage('insert')"></td>
+		</tr>
 	</table>
 
 </body>

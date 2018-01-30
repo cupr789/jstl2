@@ -5,19 +5,38 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.logging.log4j.Log4jImpl;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.log4j.Logger;
+import org.apache.log4j.spi.LoggerFactory;
 
 import com.iot.test.common.DBCon;
+import com.iot.test.common.MybatisSessionFactory;
 import com.iot.test.dao.UserDao;
 import com.iot.test.utils.DBUtil;
 import com.iot.test.vo.UserInfo;
 
 public class UserDaoImpl implements UserDao{
-
+	
+	private static Logger log = Logger.getLogger(UserDaoImpl.class);
+	
 	@Override
 	public List<UserInfo> selectUserList(UserInfo ui) {
 		List<UserInfo> userList = new ArrayList<UserInfo>();
-		String sql = "select * from user_info where 1=1";
+		SqlSessionFactory ssf = MybatisSessionFactory.getSqlSessionFactory();
+		SqlSession ss = ssf.openSession();
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("str", "uino");
+		log.info("DAO시작");
+		userList = ss.selectList("user.selectUserList",map);
+		log.info("DAO종료");
+		
+/*		String sql = "select * from user_info where 1=1";
 		if(ui!=null) {
 			sql+= " and ";
 			sql+= ui.getSearchType();
@@ -27,6 +46,7 @@ public class UserDaoImpl implements UserDao{
 		PreparedStatement ps =null;
 		ResultSet rs = null;
 		try {
+			log.info("DAO 시작");
 			con=DBCon.getCon();
 			ps= con.prepareStatement(sql);
 			if(ui!=null && !ui.getUiName().equals("")) {
@@ -51,13 +71,14 @@ public class UserDaoImpl implements UserDao{
 				userInfo.setUiRegDate(rs.getString("uiregdate"));
 				userInfo.setCiNo(rs.getInt("cino"));
 				userList.add(userInfo);
+				
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally{
 			DBUtil.closeAll(rs, con, ps);
 			
-		}
+		}log.info("DAO 종료");*/
 		return userList;
 	}
 

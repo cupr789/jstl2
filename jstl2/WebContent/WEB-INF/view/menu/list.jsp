@@ -9,7 +9,7 @@
 </head>
 <script>
 
-	function test(mNum){
+	function switchFunc(mNum){
 	
 		var name = document.getElementById("mNameTd"+mNum).innerHTML;
 		var url = document.getElementById("mUrlTd"+mNum).innerHTML;
@@ -67,9 +67,8 @@
 					<td id="mNameTd${ml.mNum}">${ml.mName}</td>
 					<td id="mUrlTd${ml.mNum}">${ml.mUrl }</td>
 					<td id="mDescTd${ml.mNum}">${ml.mDesc }</td>
-					<td id="tdId${ml.mNum}"><button id="btnId${ml.mNum}"
-							type="button" onclick="test(${ml.mNum})">수정</button>
-						<button type="submit" name="deleteId" value="${ml.mNum}">삭제</button></td>
+					<td id="tdId${ml.mNum}"><button id="btnId${ml.mNum}" type="button" onclick="switchFunc(${ml.mNum})">수정</button>
+					<button type="submit" name="deleteId" value="${ml.mNum}">삭제</button></td>
 				</tr>
 			</c:forEach>
 		</table>

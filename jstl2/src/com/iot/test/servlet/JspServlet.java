@@ -45,6 +45,13 @@ public class JspServlet extends HttpServlet{
 			us.getUserList(req);	
 			uri = "/WEB-INF"+uri;
 		}
+		if(uri.indexOf("user/insert")!=-1) {
+			uri = "/WEB-INF"+uri;
+		}
+		if(uri.indexOf("user/view")!=-1) {
+			uri = "/WEB-INF"+uri;
+		}
+		
 		if(uri.indexOf("class/list")!=-1) {
 			ClassService cs = new ClassServiceImpl();
 			System.out.println(cs.getClassList(req));
